@@ -32,3 +32,4 @@ the amount of data that needs to be stored will not fit.
     type Seeker interface {
         Seek(offset int64, whence int) (int64, error)
     }
+
