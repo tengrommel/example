@@ -85,3 +85,34 @@ or another error otherwise.
 
 # The strings reader
 > The strings package contains another structure that is very similar to the io.Reader interface, called strings.Reader.
+
+One of the main advantages of using a string instead of the byte reader, when dealing with strings that need to read, 
+is the avoidance of copying the data when initializing it. This subtle difference helps with both performance and memory
+usage because it does fewer allocations and requires the Garbage Collector(GC) to clean up the copy.
+
+# Defining a reader
+> Any Go application can define a custom implementing of the io.reader interface. A good general rule when implementing 
+interfaces is to accept interfaces and return concrete types, avoiding unnecessary abstraction.
+
+# Output and writers
+> The reasoning that applies to incoming streams also applies to outgoing ones.
+
+# The bytes writer
+> We already saw that the bytes package offers Buffer, which has both reading and writing capabilities.
+
+- io.Writer: This can act as a regular writer
+- io.WriterAt: This makes it possible to write from a certain position onward
+- io.ByteWriter: This makes it possible to write single bytes
+
+bytes.Buffer is a very flexible structure considering that it works for both, Writer and ByteWriter and works  best if reused, 
+thanks to the Reset and Truncate methods. Instead of leaving a used buffer to be recycled by the GC and make a new buffer,
+ it is better to reset the existing one, keeping the underlying array for the buffer and setting the slice length to 0.
+
+# The string writer
+> A byte buffer executes a copy of the bytes in order to produce a string.
+
+The only way of obtaining the final string is with the String method, which uses the 
+unsafe package under the hood to convert the slice to a string without copying the underlying data.
+
+# Define a writer
+> Any custom implementation of any writer can be defined in the application.
