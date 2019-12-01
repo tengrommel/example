@@ -3,6 +3,7 @@ package main
 import (
 	"awesomeProject/finance-app-backend/backend/internal/api"
 	"awesomeProject/finance-app-backend/backend/internal/config"
+	"awesomeProject/finance-app-backend/backend/internal/database"
 	"github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -10,7 +11,15 @@ import (
 func main() {
 	logrus.SetLevel(logrus.DebugLevel)
 	logrus.WithField("version", config.Version).Debug("Starting server")
-	router, err := api.NewRouter()
+
+	// Creating new database
+	db, err := database.New()
+	if err != nil {
+		logrus.WithError(err).Fatal()
+	}
+
+	// Creating new router
+	router, err := api.NewRouter(db)
 	if err != nil {
 		logrus.WithError(err).Fatal("Error building router")
 	}

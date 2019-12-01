@@ -116,3 +116,10 @@ unsafe package under the hood to convert the slice to a string without copying t
 
 # Define a writer
 > Any custom implementation of any writer can be defined in the application.
+
+# The Uses of Composite Types
+
+## Structures
+> Although arrays, slices, and maps are all very useful, they cannot group and hold multiple
+values in the same place.When you need to group various types of variable types of variables and 
+create a new handy type, you can use a structure.
