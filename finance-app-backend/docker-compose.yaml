@@ -1,0 +1,6 @@
+version: '3'
+services:
+  server:
+    build:
+      posts:
+        -8088:8080
