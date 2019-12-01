@@ -123,3 +123,10 @@ unsafe package under the hood to convert the slice to a string without copying t
 > Although arrays, slices, and maps are all very useful, they cannot group and hold multiple
 values in the same place.When you need to group various types of variable types of variables and 
 create a new handy type, you can use a structure.
+
+Tuples
+> Strictly speaking, a tuple is a finite ordered list with multiple parts.
+
+Regular expressions and pattern matching
+> Pattern matching, which plays a key role in Go, is a technique for searching a string for 
+some set of characters based on a specific search pattern that is based on regular expressions and grammars
