@@ -20,3 +20,12 @@ reflect.TypeOf()
 - 种类 (Kind)
 
 reflect.ValueOf()
+
+# goroutine
+
+一个goroutine对应一个任务（函数）
+
+# channel
+> 单纯地将函数并发执行是没有意义的
+
+先入先出
