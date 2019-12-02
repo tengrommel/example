@@ -19,4 +19,36 @@ Lists are the most commonly used linear data structures.
 ## LinkedList
 > LinkedList is a sequence of nodes that have properties and a reference to the next new node in the sequence.
 
+It is a linear data structure that is used to store data.
 
+The data structure permits the addition and deletion of components from any node next to another node.
+
+They are not stored contiguously in memory, which makes them different arrays.
+
+## The Node class
+> The Node class has an integer typed variable with the name property.
+
+The class has another variable with the name nextNode, which is a node pointer.
+
+Linked list will have a set of nodes with integer properties, as follows:
+
+    // Node class 
+    type Node struct {
+        property int
+        nextNode *Node
+    }
+    
+**The LinkedList class**
+> The LinkedList class has the headNode pointer as its property.
+By traversing to nextNode from headNode, you can iterate through the linked list, as shown in the following 
+
+    // LinkedList class
+    type LinkedList struct {
+        headNode *Node
+    }
+
+The different methods of the LinkedList class, such as AddToHead, IterateList, LastNode, AddToEnd,
+NodeWithValue, AddAfter, and the main method, are discussed in the following sections.
+
+**The AddToHead method**
+> The AddToHead method adds the node to the start of the linked list.
