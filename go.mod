@@ -10,6 +10,7 @@ require (
 	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/flosch/pongo2 v0.0.0-20190707114632-bbf5a6c351f4 // indirect
+	github.com/go-sql-driver/mysql v1.4.0
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/gorilla/mux v1.7.3
@@ -21,7 +22,7 @@ require (
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/json-iterator/go v1.1.8 // indirect
 	github.com/kataras/golog v0.0.9 // indirect
-	github.com/kataras/iris v11.1.1+incompatible
+	github.com/kataras/iris v11.1.1+incompatible // indirect
 	github.com/klauspost/compress v1.9.3 // indirect
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/gommon v0.3.0 // indirect
@@ -35,4 +36,5 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/src-d/go-github v0.0.0-20161107154259-c4b786495042
 	golang.org/x/crypto v0.0.0-20191122220453-ac88ee75c92c // indirect
+	google.golang.org/appengine v1.6.5 // indirect
 )
