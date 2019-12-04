@@ -30,10 +30,10 @@ func UpdateFileMetaDB(fMeta FileMeta) bool {
 	return myDB.OnFileUploadFinished(fMeta.FileSha1, fMeta.FileName, fMeta.FileSize, fMeta.Location)
 }
 
-func GetFileMetaDB(fileSha1 string) (FileMeta, error) {
+func GetFileMetaDB(fileSha1 string) (*FileMeta, error) {
 	tFile, err := myDB.GetFileMeta(fileSha1)
 	if err != nil {
-		return FileMeta{}, err
+		return nil, err
 	}
 	fMeta := FileMeta{
 		FileSha1: tFile.FileHash,
@@ -41,7 +41,7 @@ func GetFileMetaDB(fileSha1 string) (FileMeta, error) {
 		FileSize: tFile.FileSize.Int64,
 		Location: tFile.FileAddr.String,
 	}
-	return fMeta, nil
+	return &fMeta, nil
 }
 
 // GetFileMeta: 通过sha1值获取文件的元信息对象
