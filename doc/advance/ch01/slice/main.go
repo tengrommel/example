@@ -58,6 +58,9 @@ func SortFloat64FastV2(a []float64) {
 	sort.Ints(c)
 }
 
+// 第一种强制转换丝先将切片数据的开始地址转换为一个较大的数组的指针，然后对数组指针对应的数组重新做切片操作
+// 第二种转换操作是分别取两个不同类型的切片头信息指针，任何类型的切片类型的切片头部信息底层都对应reflect.SliceHeader结构，
+// 然后通过更新结构体方式来更新切片信息，从而实现a对应的[]float64切片到c对应的[]int切片的转换。
 func main() {
 	for i := range a {
 		fmt.Printf("a[%d] : %d\n", i, a[i])
