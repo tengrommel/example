@@ -53,3 +53,12 @@ NodeWithValue, AddAfter, and the main method, are discussed in the following sec
 **The AddToHead method**
 > The AddToHead method adds the node to the start of the linked list.
 
+# Sets
+> A Set is a linear data structure that has a collection of values that are not repeated.
+
+A set can store unique values without any particular order.
+
+Dynamic and mutable sets allow for the insertion and deletion of elements.
+
+Algebraic operations such as union, intersection, difference, and subset can be defined on the sets.
+
