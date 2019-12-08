@@ -22,3 +22,11 @@
                     image: nginx
                     ports:
                         containerPort: 80
+
+## ES
+
+分布式原理
+
+- 分片
+- 主从
+- 路由
