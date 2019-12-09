@@ -62,3 +62,7 @@ Dynamic and mutable sets allow for the insertion and deletion of elements.
 
 Algebraic operations such as union, intersection, difference, and subset can be defined on the sets.
 
+# Tuples
+> Tuples are finite ordered sequences of objects. They can contain a mixture of other data types 
+and are used to group related data into a data structure.
+
