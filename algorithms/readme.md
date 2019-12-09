@@ -66,3 +66,8 @@ Algebraic operations such as union, intersection, difference, and subset can be 
 > Tuples are finite ordered sequences of objects. They can contain a mixture of other data types 
 and are used to group related data into a data structure.
 
+# Queues
+> A queue consists of elements to be processed in a particular order or based on priority
+
+A priority-based queue of orders is shown in the following code, structured as a heap.
+
