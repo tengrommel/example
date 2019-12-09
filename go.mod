@@ -11,6 +11,7 @@ require (
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/flosch/pongo2 v0.0.0-20190707114632-bbf5a6c351f4 // indirect
 	github.com/garyburd/redigo v1.6.0
+	github.com/go-redis/redis v6.15.6+incompatible
 	github.com/go-sql-driver/mysql v1.4.0
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
@@ -36,7 +37,7 @@ require (
 	github.com/ryanuber/columnize v2.1.0+incompatible // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/sirupsen/logrus v1.4.2
-	github.com/sony/sonyflake v1.0.0
+	github.com/sony/sonyflake v1.0.0 // indirect
 	github.com/src-d/go-github v0.0.0-20161107154259-c4b786495042
 	golang.org/x/crypto v0.0.0-20191122220453-ac88ee75c92c // indirect
 	google.golang.org/appengine v1.6.5 // indirect
