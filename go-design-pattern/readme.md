@@ -8,3 +8,12 @@ Just keep in mind that the Singleton pattern will give you the power to have a u
 
 Talking about Creational design patterns, it looks pretty semantic to have a Builder design pattern.
 The Builder pattern helps us construct complex objects without directly instantiating their struct, or writing the logic they require.
+
+# Factory method
+> delegating the creation of different types of payments
+
+## objectives
+
+- Delegating the creation of new instances of structures to a different part of the program
+- Working at the interface level instead of with concrete implementations
+- Grouping families of objects to obtain a family object creator
