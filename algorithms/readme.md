@@ -71,3 +71,5 @@ and are used to group related data into a data structure.
 
 A priority-based queue of orders is shown in the following code, structured as a heap.
 
+# Tree
+> A Tree is a non-linear data structure.
