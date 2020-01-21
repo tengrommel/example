@@ -1,6 +1,7 @@
 package main
 
 import (
+	"awesomeProject/algorithms/lists/Stack/StackArray"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -28,9 +29,27 @@ func GetAll(path string, files []string) ([]string, error) {
 
 func main() {
 	path := "."
-	files := make([]string, 0)        // 数组字符串
-	files, _ = GetAll(path, files)    // 抓取所有文件
-	for i := 0; i < len(files); i++ { // 打印路径
+	files := make([]string, 0)
+	myStack := StackArray.NewStack()
+	myStack.Push(path)
+	for !myStack.IsEmpty() {
+		getPath := myStack.Pop().(string)
+		files = append(files, getPath)     // 加入列表
+		read, _ := ioutil.ReadDir(getPath) // 读取文件夹下面所有的路径
+		for _, fi := range read {
+			if fi.IsDir() {
+				fullDir := getPath + "/" + fi.Name()
+				files = append(files, fullDir)
+				myStack.Push(fullDir)
+			} else {
+				fullDir := getPath + "/" + fi.Name()
+				files = append(files, fullDir)
+			}
+		}
+	}
+
+	for i := 0; i < len(files); i++ { // 打印
 		fmt.Println(files[i])
 	}
+
 }
