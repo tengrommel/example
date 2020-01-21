@@ -5,6 +5,14 @@ import (
 	"fmt"
 )
 
+func fab(num int) int {
+	if num == 1 || num == 2 {
+		return 1
+	} else {
+		return fab(num-1) + fab(num-2)
+	}
+}
+
 func main() {
 	list := ArrayList.NewArrayList()
 	list.Append("a1")
