@@ -130,3 +130,16 @@ Tuples
 Regular expressions and pattern matching
 > Pattern matching, which plays a key role in Go, is a technique for searching a string for 
 some set of characters based on a specific search pattern that is based on regular expressions and grammars
+
+# The reflectwalk library
+> The reflectwalk library allows you to walk complex values in Go using reflection in a way that is similar to the way you walk a filesystem.
+
+# Object-oriented programming in Go
+> You should know by now that Go does not use inheritance; instead, it supports composition
+
+- use methods in order to associate a function with a type, which means that in some ways,
+the function and the type construct an object
+
+- you embed a type into a new structure type in order to create a kind of hierarchy
+
+- where you use a Go interface to make two or more elements objects of the same class

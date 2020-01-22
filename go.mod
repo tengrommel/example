@@ -30,6 +30,7 @@ require (
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/lib/pq v1.0.0
 	github.com/microcosm-cc/bluemonday v1.0.2 // indirect
+	github.com/mitchellh/reflectwalk v1.0.1
 	github.com/namsral/flag v1.7.4-pre
 	github.com/nsqio/go-nsq v1.0.7
 	github.com/pkg/errors v0.8.1
@@ -37,6 +38,7 @@ require (
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/sony/sonyflake v1.0.0 // indirect
+	github.com/spf13/viper v1.6.2
 	github.com/src-d/go-github v0.0.0-20161107154259-c4b786495042
 	golang.org/x/crypto v0.0.0-20191122220453-ac88ee75c92c // indirect
 	google.golang.org/appengine v1.6.5 // indirect
