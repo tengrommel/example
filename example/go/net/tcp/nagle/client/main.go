@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net"
+	"time"
 )
 
 func main() {
@@ -15,5 +16,6 @@ func main() {
 	for i := 0; i < 20; i++ {
 		msg := `Hello, Hello. How are you?`
 		conn.Write([]byte(msg))
+		time.Sleep(time.Second)
 	}
 }
