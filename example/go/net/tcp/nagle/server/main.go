@@ -1,6 +1,7 @@
 package main
 
 import (
+	"awesomeProject/doc/tcp/proto"
 	"bufio"
 	"fmt"
 	"io"
@@ -10,18 +11,16 @@ import (
 func process(conn net.Conn) {
 	defer conn.Close()
 	reader := bufio.NewReader(conn)
-	var buf [1024]byte
 	for {
-		n, err := reader.Read(buf[:])
+		msg, err := proto.Decode(reader)
 		if err == io.EOF {
-			break
+			return
 		}
 		if err != nil {
-			fmt.Println("read from client failed, err:", err)
-			break
+			fmt.Println("decode failed, err:", err)
+			return
 		}
-		recvStr := string(buf[:n])
-		fmt.Println("收到client发来的数据：", recvStr)
+		fmt.Println("收到client发来的数据：", msg)
 	}
 }
 

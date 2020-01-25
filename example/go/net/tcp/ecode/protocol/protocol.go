@@ -1,6 +1,7 @@
 package protocol
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/binary"
 )
@@ -21,4 +22,27 @@ func Encode(message string) ([]byte, error) {
 		return nil, err
 	}
 	return pkg.Bytes(), nil
+}
+
+// Decode 解码消息
+func Decode(reader *bufio.Reader) (string, error) {
+	// 读取消息的长度
+	lengthByte, _ := reader.Peek(4) // 读取前四个字节的内容
+	lengthBuff := bytes.NewBuffer(lengthByte)
+	var length int32
+	err := binary.Read(lengthBuff, binary.LittleEndian, &length)
+	if err != nil {
+		return "", err
+	}
+	// Buffered 返回缓冲中现有的可读取的字节数
+	if int32(reader.Buffered()) < length+4 {
+		return "", err
+	}
+	// 读取真正的消息数据
+	pack := make([]byte, int(4+length))
+	_, err = reader.Read(pack)
+	if err != nil {
+		return "", err
+	}
+	return string(pack[4:]), nil
 }
