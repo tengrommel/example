@@ -13,7 +13,7 @@ func logicCode() {
 	var c chan int
 	for {
 		select {
-		case v := <-c:
+		case v := <-c: // 阻塞
 			fmt.Printf("recv from chan, value:%v\n", v)
 		default:
 		}
@@ -37,7 +37,7 @@ func main() {
 		pprof.StartCPUProfile(file)
 		defer pprof.StopCPUProfile()
 	}
-	for i := 0; i < 8; i++ {
+	for i := 0; i < 6; i++ {
 		go logicCode()
 	}
 	time.Sleep(20 * time.Second)
