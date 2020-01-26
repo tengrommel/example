@@ -1,11 +1,13 @@
 package split_string
 
-import "strings"
+import (
+	"strings"
+)
 
 // 切割字符串
 func Split(str string, sep string) []string {
 	// Spit 切割字符串
-	var ret []string
+	var ret = make([]string, 0, strings.Count(str, sep)+1)
 	index := strings.Index(str, sep)
 	for index >= 0 {
 		ret = append(ret, str[:index])
