@@ -62,11 +62,62 @@ func queryMore(n int) {
 	}
 }
 
+// 插入数据
+func insert() {
+	// 1、写语句
+	sqlStr := `insert into user(name, age) values("图朝阳", 28)`
+	ret, err := db.Exec(sqlStr)
+	if err != nil {
+		fmt.Printf("insert failed, err:")
+	}
+	// 如果是插入数据的操作，能够拿到插入数量的id
+	id, err := ret.LastInsertId()
+	if err != nil {
+		fmt.Printf("get id failed, err: %v\n", err)
+		return
+	}
+	fmt.Println(id)
+}
+
+// 更新操作
+func updateRow(newAge int, id int) {
+	sqlStr := `update user set age=? where id=?`
+	ret, err := db.Exec(sqlStr, newAge, id)
+	if err != nil {
+		fmt.Printf("update failed err: %v\n", err)
+		return
+	}
+	n, err := ret.RowsAffected()
+	if err != nil {
+		fmt.Printf("get id failed, err: %v\n", err)
+		return
+	}
+	fmt.Printf("更新了%d行数据\n", n)
+}
+
+func deleteRowDemo(id int) {
+	sqlStr := `delete from user where id=?`
+	ret, err := db.Exec(sqlStr, id)
+	if err != nil {
+		fmt.Printf("delete failed, err: %v\n", err)
+		return
+	}
+	n, err := ret.RowsAffected()
+	if err != nil {
+		fmt.Printf("get id failed, err: %v\n", err)
+		return
+	}
+	fmt.Printf("删除了%d行数据\n", n)
+}
+
 func main() {
 	err := initDB()
 	if err != nil {
 		fmt.Printf("init DB failed, err: %v", err)
 	}
-	fmt.Println("连接数据库成功！")
-	queryMore(0)
+	//fmt.Println("连接数据库成功！")
+	//queryMore(0)
+	//insert()
+	//updateRow(8999, 2)
+	deleteRowDemo(2)
 }
