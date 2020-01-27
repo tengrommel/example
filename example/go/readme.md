@@ -33,6 +33,11 @@ ACID
 
 # Redis
 > KV 数据库
+
+Redis的用处
+- 1、cache缓存
+- 2、简单的队列
+- 3、排名
 # NSQ
 > Go 语言开发的轻量级的消息队列
 # go module
