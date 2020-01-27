@@ -29,25 +29,29 @@ func main() {
 	flag.Parse()
 
 	if isCPUPprof {
-		file, err := os.Create("./cpu.pprof")
+		f1, err := os.Create("./cpu.pprof")
 		if err != nil {
 			fmt.Printf("create cpu pprof failed, err: %v\n", err)
 			return
 		}
-		pprof.StartCPUProfile(file)
-		defer pprof.StopCPUProfile()
+		pprof.StartCPUProfile(f1)
+		defer func() {
+			pprof.StopCPUProfile()
+			f1.Close()
+		}()
+		//defer pprof.StopCPUProfile()
 	}
 	for i := 0; i < 6; i++ {
 		go logicCode()
 	}
 	time.Sleep(20 * time.Second)
 	if isMemPprof {
-		file, err := os.Create("./mem.pprof")
+		f2, err := os.Create("./mem.pprof")
 		if err != nil {
 			fmt.Printf("create mem pprof failed, err:%v\n", err)
 			return
 		}
-		pprof.WriteHeapProfile(file)
-		file.Close()
+		pprof.WriteHeapProfile(f2)
+		f2.Close()
 	}
 }
