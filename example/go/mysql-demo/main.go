@@ -25,7 +25,7 @@ func initDB() (err error) {
 	}
 	err = db.Ping()
 	if err != nil {
-		return fmt.Errorf("Err:", err)
+		return fmt.Errorf("Err: %v", err)
 	}
 	fmt.Println("连接数据库成功")
 	db.SetMaxOpenConns(10)
@@ -34,14 +34,6 @@ func initDB() (err error) {
 
 // 查询
 func query() {
-
-}
-
-func main() {
-	err := initDB()
-	if err != nil {
-		fmt.Printf("init DB failed, err: %v", err)
-	}
 	sqlStr := `select id, name, age from user where id=?;`
 	// 执行
 	row := db.QueryRow(sqlStr, 2) // 从连接池里拿一个连接出来去数据库查询单条记录
@@ -49,4 +41,32 @@ func main() {
 	var u user
 	row.Scan(&u.id, &u.name, &u.age)
 	fmt.Printf("u1: %#v\n", u)
+}
+
+// 查询多条
+func queryMore(n int) {
+	sqlStr := `select id, name, age from user where id > ?;`
+	rows, err := db.Query(sqlStr, n)
+	if err != nil {
+		fmt.Println("exec %s query failed, err: %v\n", sqlStr, err)
+		return
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var u user
+		err := rows.Scan(&u.id, &u.name, &u.age)
+		if err != nil {
+			fmt.Printf("u:%#v\n", u)
+		}
+		fmt.Printf("u:%#v\n", u)
+	}
+}
+
+func main() {
+	err := initDB()
+	if err != nil {
+		fmt.Printf("init DB failed, err: %v", err)
+	}
+	fmt.Println("连接数据库成功！")
+	queryMore(0)
 }
