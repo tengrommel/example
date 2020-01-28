@@ -7,15 +7,17 @@ import (
 )
 
 var wg sync.WaitGroup
-var notify bool
+var exitChan = make(chan bool, 1)
 
 func f() {
 	defer wg.Done()
 	for {
 		fmt.Println("周琳")
 		time.Sleep(time.Millisecond * 500)
-		if notify {
-			break
+		select {
+		case <-exitChan:
+			return
+		default:
 		}
 	}
 }
@@ -28,7 +30,7 @@ func main() {
 	wg.Add(1)
 	go f()
 	time.Sleep(5 * time.Second)
-	notify = true
+	exitChan <- true
 	wg.Wait()
 	// 如何通知子goroutine退出
 }
