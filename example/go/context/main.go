@@ -11,8 +11,22 @@ var wg sync.WaitGroup
 
 func f(ctx context.Context) {
 	defer wg.Done()
+	go f2(ctx)
 	for {
 		fmt.Println("周琳")
+		time.Sleep(time.Millisecond * 500)
+		select {
+		case <-ctx.Done(): // 返回只读的chan
+			return
+		default:
+		}
+	}
+}
+
+func f2(ctx context.Context) {
+	defer wg.Done()
+	for {
+		fmt.Println("OK")
 		time.Sleep(time.Millisecond * 500)
 		select {
 		case <-ctx.Done(): // 返回只读的chan
@@ -28,7 +42,7 @@ func f(ctx context.Context) {
 */
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
-	wg.Add(1)
+	wg.Add(2)
 	go f(ctx)
 	time.Sleep(5 * time.Second)
 	cancel()
