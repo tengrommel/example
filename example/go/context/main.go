@@ -1,21 +1,21 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"sync"
 	"time"
 )
 
 var wg sync.WaitGroup
-var exitChan = make(chan bool, 1)
 
-func f() {
+func f(ctx context.Context) {
 	defer wg.Done()
 	for {
 		fmt.Println("周琳")
 		time.Sleep(time.Millisecond * 500)
 		select {
-		case <-exitChan:
+		case <-ctx.Done(): // 返回只读的chan
 			return
 		default:
 		}
@@ -27,10 +27,11 @@ func f() {
 方法二： 使用chan
 */
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
 	wg.Add(1)
-	go f()
+	go f(ctx)
 	time.Sleep(5 * time.Second)
-	exitChan <- true
+	cancel()
 	wg.Wait()
 	// 如何通知子goroutine退出
 }
