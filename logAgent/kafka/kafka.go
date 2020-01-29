@@ -26,7 +26,6 @@ func SendToKafka(topic, data string) {
 	msg.Value = sarama.StringEncoder(data)
 
 	pid, offset, err := client.SendMessage(msg)
-	fmt.Println("xxx")
 	if err != nil {
 		fmt.Println("send msg failed, err:", err)
 		return
