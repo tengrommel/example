@@ -8,6 +8,7 @@ require (
 	github.com/Shopify/sarama v1.19.0
 	github.com/aymerick/raymond v2.0.2+incompatible // indirect
 	github.com/bwmarrin/snowflake v0.3.0
+	github.com/coreos/etcd v3.3.18+incompatible // indirect
 	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/flosch/pongo2 v0.0.0-20190707114632-bbf5a6c351f4 // indirect
@@ -16,6 +17,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang-migrate/migrate/v4 v4.7.0
 	github.com/golang/protobuf v1.3.2
+	github.com/google/uuid v1.1.1 // indirect
 	github.com/gorilla/mux v1.7.3
 	github.com/gorilla/schema v1.1.0 // indirect
 	github.com/hpcloud/tail v1.0.0
@@ -42,7 +44,9 @@ require (
 	github.com/sony/sonyflake v1.0.0 // indirect
 	github.com/spf13/viper v1.6.2
 	github.com/src-d/go-github v0.0.0-20161107154259-c4b786495042
+	go.etcd.io/etcd v3.3.18+incompatible
 	golang.org/x/crypto v0.0.0-20191122220453-ac88ee75c92c // indirect
 	google.golang.org/appengine v1.6.5 // indirect
 	google.golang.org/grpc v1.25.1
+	gopkg.in/ini.v1 v1.51.0
 )
