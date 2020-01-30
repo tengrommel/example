@@ -4,6 +4,7 @@ import (
 	"awesomeProject/logAgent/conf"
 	"awesomeProject/logAgent/etcd"
 	"awesomeProject/logAgent/kafka"
+	"awesomeProject/logAgent/taillog"
 	"fmt"
 	"gopkg.in/ini.v1"
 	"time"
@@ -40,9 +41,9 @@ func main() {
 	}
 	fmt.Println("init kafka success")
 	// 2、打开日志文件准备收集日志
-	//err = taillog.Init(cfg.FileName)
+	//err = taillog.init(cfg.FileName)
 	//if err != nil {
-	//	fmt.Printf("Init tailing failed, err:%v\n", err)
+	//	fmt.Printf("init tailing failed, err:%v\n", err)
 	//	return
 	//}
 	//fmt.Println("init tail log success")
@@ -51,7 +52,7 @@ func main() {
 	err = etcd.Init(cfg.EtcdConf.Address, time.Duration(cfg.EtcdConf.Timeout)*time.Second)
 	fmt.Println("init etcd success.")
 	// 2.1 从etcd中获取日志收集项的配置信息
-	logEntryConf, err := etcd.GetConf("teng")
+	logEntryConf, err := etcd.GetConf(cfg.EtcdConf.Key)
 	// 2.2 派一个哨兵去监视日志收集项的变化（有变化及时通知我的logAgent实现热启动）
 	if err != nil {
 		fmt.Printf("etcd.GetConf failed, err:%v\n", err)
@@ -61,4 +62,7 @@ func main() {
 	for index, value := range logEntryConf {
 		fmt.Printf("index:%v value: %v\n", index, value)
 	}
+	// 3 收集日志发送到Kafka
+	// 3.1 循环每一个日志收集项，创建TailObj
+	taillog.Init(logEntryConf)
 }
