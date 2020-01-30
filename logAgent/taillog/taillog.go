@@ -47,7 +47,10 @@ func (t *TailTask) run() {
 		select {
 		case line := <-t.instance.Lines:
 			// 3.2 发往Kafka 将同步的调用变成异步
-			kafka.SendToKafka(t.topic, line.Text)
+			//kafka.SendToKafka(t.topic, line.Text)
+			// 先把日志数据发到一个通道中
+			kafka.SendToChan(t.topic, line.Text)
+			// kafka那个包中有单独的goroutine去取日志数据发到kafka
 		}
 	}
 }

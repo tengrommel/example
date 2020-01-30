@@ -3,11 +3,27 @@ package kafka
 import (
 	"fmt"
 	"github.com/Shopify/sarama"
+	"time"
 )
 
-var client sarama.SyncProducer
+type logData struct {
+	topic string
+	data  string
+}
 
-func Init(addrs []string) (err error) {
+var client sarama.SyncProducer
+var loadDataChan chan *logData
+
+// 给外部暴露的一个函数
+func SendToChan(topic, data string) {
+	msg := &logData{
+		topic: topic,
+		data:  data,
+	}
+	loadDataChan <- msg
+}
+
+func Init(addrs []string, maxSize int) (err error) {
 	config := sarama.NewConfig()
 	config.Producer.RequiredAcks = sarama.WaitForAll
 	config.Producer.Partitioner = sarama.NewRandomPartitioner
@@ -17,18 +33,28 @@ func Init(addrs []string) (err error) {
 	if err != nil {
 		return err
 	}
+	loadDataChan = make(chan *logData, maxSize)
+	// 开启后台的goroutine从通道中取出
+	go sendToKafka()
 	return
 }
 
-func SendToKafka(topic, data string) {
-	msg := &sarama.ProducerMessage{}
-	msg.Topic = topic
-	msg.Value = sarama.StringEncoder(data)
-
-	pid, offset, err := client.SendMessage(msg)
-	if err != nil {
-		fmt.Println("send msg failed, err:", err)
-		return
+// 真正往Kafka发送日志的函数
+func sendToKafka() {
+	for {
+		select {
+		case msgStruct := <-loadDataChan:
+			msg := &sarama.ProducerMessage{}
+			msg.Topic = msgStruct.topic
+			msg.Value = sarama.StringEncoder(msgStruct.data)
+			pid, offset, err := client.SendMessage(msg)
+			if err != nil {
+				fmt.Println("send msg failed, err:", err)
+				return
+			}
+			fmt.Printf("pid:%v offset:%v\n", pid, offset)
+		default:
+			time.Sleep(time.Millisecond * 50)
+		}
 	}
-	fmt.Printf("pid:%v offset:%v\n", pid, offset)
 }
