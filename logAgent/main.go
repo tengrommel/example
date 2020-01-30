@@ -58,4 +58,7 @@ func main() {
 		return
 	}
 	fmt.Printf("get conf from etcd success, %v\n", logEntryConf)
+	for index, value := range logEntryConf {
+		fmt.Printf("index:%v value: %v\n", index, value)
+	}
 }

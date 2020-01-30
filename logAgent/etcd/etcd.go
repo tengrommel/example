@@ -44,10 +44,10 @@ func GetConf(key string) (logEntries []*LogEntry, err error) {
 		return nil, err
 	}
 	for _, ev := range resp.Kvs {
-		err := json.Unmarshal(ev.Value, logEntries)
+		err = json.Unmarshal(ev.Value, &logEntries)
 		if err != nil {
 			fmt.Printf("unmarshal etcd value failed, err: %v\n", err)
-			return logEntries, nil
+			return
 		}
 	}
 	return
