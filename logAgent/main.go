@@ -50,4 +50,12 @@ func main() {
 	// 2、初始化etcd
 	err = etcd.Init(cfg.EtcdConf.Address, time.Duration(cfg.EtcdConf.Timeout)*time.Second)
 	fmt.Println("init etcd success.")
+	// 2.1 从etcd中获取日志收集项的配置信息
+	logEntryConf, err := etcd.GetConf("teng")
+	// 2.2 派一个哨兵去监视日志收集项的变化（有变化及时通知我的logAgent实现热启动）
+	if err != nil {
+		fmt.Printf("etcd.GetConf failed, err:%v\n", err)
+		return
+	}
+	fmt.Printf("get conf from etcd success, %v\n", logEntryConf)
 }
