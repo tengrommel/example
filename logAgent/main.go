@@ -7,6 +7,7 @@ import (
 	"awesomeProject/logAgent/taillog"
 	"fmt"
 	"gopkg.in/ini.v1"
+	"sync"
 	"time"
 )
 
@@ -62,7 +63,15 @@ func main() {
 	for index, value := range logEntryConf {
 		fmt.Printf("index:%v value: %v\n", index, value)
 	}
-	// 3 收集日志发送到Kafka
-	// 3.1 循环每一个日志收集项，创建TailObj
 	taillog.Init(logEntryConf)
+	// 3.1 循环每一个日志收集项，创建TailObj
+	// 3 收集日志发送到Kafka
+	// watch
+	// 派一个哨兵 一直监视
+	newConfChan := taillog.NewConfChan() // 从taillog包中获取对外暴露的通道
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go etcd.WatchConf(cfg.EtcdConf.Key, newConfChan) // 哨兵发现最新的配置信息会通知上面的那个通知
+	wg.Wait()
+	// run()
 }
