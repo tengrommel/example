@@ -22,7 +22,10 @@ func Init(logConf []*etcd.LogEntry) {
 		newConfChan: make(chan []*etcd.LogEntry), // 无缓冲区的通道
 	}
 	for _, logEntry := range logConf {
-		NewTailTask(logEntry.Path, logEntry.Topic)
+		// 初始化的时候 方便之后判断
+		tailTask := NewTailTask(logEntry.Path, logEntry.Topic)
+		mk := fmt.Sprintf("%s_%s", logEntry.Path, logEntry.Topic)
+		tskMgr.tskMap[mk] = tailTask
 	}
 	go tskMgr.run()
 }
@@ -35,7 +38,20 @@ func (t *tailLogMgr) run() {
 	for {
 		select {
 		case newConf := <-t.newConfChan:
-			// 1、配置新增
+			for _, conf := range newConf {
+				mk := fmt.Sprintf("%s_%s", conf.Path, conf.Topic)
+				// 1、配置新增
+				_, ok := t.tskMap[mk]
+				if ok {
+					// 原来就有，不需要操作
+					continue
+				} else {
+					// 新增的
+					tailObj := NewTailTask(conf.Path, conf.Topic)
+					t.tskMap[mk] = tailObj
+				}
+			}
+			// 找出原来有 但是新的newConf没有的 要删掉
 			// 2、配置删除
 			// 3、配置变更
 			fmt.Println("新的配置来了！", newConf)
