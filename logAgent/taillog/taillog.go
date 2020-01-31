@@ -2,6 +2,7 @@ package taillog
 
 import (
 	"awesomeProject/logAgent/kafka"
+	"context"
 	"fmt"
 	"github.com/hpcloud/tail"
 )
@@ -11,12 +12,18 @@ type TailTask struct {
 	path     string
 	topic    string
 	instance *tail.Tail
+	// 为了能够实现退出t.run()
+	ctx        context.Context
+	cancelFunc context.CancelFunc
 }
 
 func NewTailTask(path, topic string) (tail *TailTask) {
+	ctx, cancel := context.WithCancel(context.Background())
 	tail = &TailTask{
-		path:  path,
-		topic: topic,
+		path:       path,
+		topic:      topic,
+		ctx:        ctx,
+		cancelFunc: cancel,
 	}
 	tail.init() // 根据路径打开对应的日志
 	return
@@ -39,12 +46,16 @@ func (t *TailTask) init() {
 	if err != nil {
 		fmt.Println("tail file failed, err:", err)
 	}
+	// 当goroutine执行的函数退出的时候，goroutine就结束了
 	go t.run() // 直接去收集采集日志
 }
 
 func (t *TailTask) run() {
 	for {
 		select {
+		case <-t.ctx.Done():
+			fmt.Printf("tail task: %v  结束了...", t.path+t.topic)
+			return
 		case line := <-t.instance.Lines:
 			// 3.2 发往Kafka 将同步的调用变成异步
 			//kafka.SendToKafka(t.topic, line.Text)

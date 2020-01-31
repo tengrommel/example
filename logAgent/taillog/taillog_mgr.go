@@ -51,6 +51,20 @@ func (t *tailLogMgr) run() {
 					t.tskMap[mk] = tailObj
 				}
 			}
+			for _, c1 := range t.logEntry {
+				isDelete := false
+				for _, c2 := range newConf {
+					if c2.Path == c1.Path && c2.Topic == c1.Topic {
+						isDelete = false
+						continue
+					}
+				}
+				if isDelete {
+					// 把c1对应的这个tailObj给停掉
+					mk := fmt.Sprintf("%s_%s", c1.Path, c1.Topic)
+					t.tskMap[mk].cancelFunc()
+				}
+			}
 			// 找出原来有 但是新的newConf没有的 要删掉
 			// 2、配置删除
 			// 3、配置变更
