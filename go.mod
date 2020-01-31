@@ -37,6 +37,7 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.1
 	github.com/namsral/flag v1.7.4-pre
 	github.com/nsqio/go-nsq v1.0.7
+	github.com/olivere/elastic/v7 v7.0.10
 	github.com/pkg/errors v0.8.1
 	github.com/ryanuber/columnize v2.1.0+incompatible // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
