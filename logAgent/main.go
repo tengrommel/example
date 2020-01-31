@@ -5,6 +5,7 @@ import (
 	"awesomeProject/logAgent/etcd"
 	"awesomeProject/logAgent/kafka"
 	"awesomeProject/logAgent/taillog"
+	"awesomeProject/logAgent/utils"
 	"fmt"
 	"gopkg.in/ini.v1"
 	"sync"
@@ -52,8 +53,14 @@ func main() {
 	// 2、初始化etcd
 	err = etcd.Init(cfg.EtcdConf.Address, time.Duration(cfg.EtcdConf.Timeout)*time.Second)
 	fmt.Println("init etcd success.")
+	// 为了实现每个logagent都拉去自己独有的配置，所以要以自己的IP地址作为区分
+	ipStr, err := utils.GetOutboundIP()
+	if err != nil {
+		panic(err)
+	}
+	etcdConfKey := fmt.Sprintf(cfg.EtcdConf.Key, ipStr)
 	// 2.1 从etcd中获取日志收集项的配置信息
-	logEntryConf, err := etcd.GetConf(cfg.EtcdConf.Key)
+	logEntryConf, err := etcd.GetConf(etcdConfKey)
 	// 2.2 派一个哨兵去监视日志收集项的变化（有变化及时通知我的logAgent实现热启动）
 	if err != nil {
 		fmt.Printf("etcd.GetConf failed, err:%v\n", err)
