@@ -2,6 +2,8 @@ package main
 
 import (
 	"awesomeProject/logAgent/log-transfer/conf"
+	"awesomeProject/logAgent/log-transfer/es"
+	"awesomeProject/logAgent/log-transfer/kafka"
 	"fmt"
 	"gopkg.in/ini.v1"
 )
@@ -18,8 +20,19 @@ func main() {
 		return
 	}
 	fmt.Printf("cfg: %v\n", cfg)
-	// 1、从kafka取日志数据
+	err = es.Init(cfg.ESCfg.Address)
+	if err != nil {
+		fmt.Printf("es conected err:%v \n", err)
+		return
+	}
 
+	// 1、从kafka取日志数据
+	// 连接kafka创建分区的消费者
+	err = kafka.Init([]string{cfg.KafkaCfg.Address}, cfg.KafkaCfg.Topic)
 	// 2、发往ES
+	if err != nil {
+		fmt.Printf("init kafka consumer failed, err: %v\n", err)
+		return
+	}
 
 }
