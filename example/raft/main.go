@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"net/http"
+	"net/rpc"
 	"sync"
 	"time"
 )
@@ -64,8 +66,16 @@ func main() {
 		// 创建3个raft节点
 		Make(i)
 	}
-	for {
 
+	// 加入服务端监听
+	rpc.Register(new(Raft))
+	rpc.HandleHTTP()
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for {
 	}
 }
 
@@ -235,7 +245,21 @@ func (rf *Raft) sendAppendEntriesImpl() {
 		for i := 0; i < raftCount; i++ {
 			if i != rf.me {
 				go func() {
-					rf.heartBeatRe <- true
+					//rf.heartBeatRe <- true
+					rp, err := rpc.DialHTTP("tcp", "127.0.0.1:8080")
+					if err != nil {
+						log.Fatal(err)
+					}
+					// 接收服务器返回的信息
+					var ok = false
+					err = rp.Call("Raft.Communication", Param{"hello"}, &ok)
+					if err != nil {
+						log.Fatal(err)
+					}
+					if ok {
+						rf.heartBeatRe <- true
+					}
+
 				}()
 			}
 		}
@@ -253,4 +277,17 @@ func (rf *Raft) sendAppendEntriesImpl() {
 			}
 		}
 	}
+}
+
+// 首字母大写，RPC规范
+// 分布式通信
+type Param struct {
+	Msg string
+}
+
+// 通信方法
+func (r *Raft) Communication(p Param, a *bool) error {
+	fmt.Println(p.Msg)
+	*a = true
+	return nil
 }
