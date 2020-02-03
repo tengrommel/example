@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"sync"
 	"time"
@@ -63,6 +64,9 @@ func main() {
 		// 创建3个raft节点
 		Make(i)
 	}
+	for {
+
+	}
 }
 
 // me 编号
@@ -107,7 +111,7 @@ func (rf *Raft) election() {
 		result = false
 		for !result {
 			// 选主逻辑
-
+			result = rf.electionOnRound(&leader)
 		}
 	}
 }
@@ -212,5 +216,41 @@ func (rf *Raft) becomeLeader() {
 // 顺便完成数据同步, 这里先不实现
 // 看小弟挂没挂
 func (rf *Raft) sendLeaderHeartBeat() {
+	// 死循环
+	for {
+		select {
+		case <-rf.heartBeat:
+			rf.sendAppendEntriesImpl()
+		}
+	}
+}
 
+// 用于返回给leader的确认信号
+func (rf *Raft) sendAppendEntriesImpl() {
+	if rf.currentLeader == rf.me {
+		// 此时为leader
+		// 记录确认信号的节点个数
+		var successCount = 0
+		// 设置确认信号
+		for i := 0; i < raftCount; i++ {
+			if i != rf.me {
+				go func() {
+					rf.heartBeatRe <- true
+				}()
+			}
+		}
+		// 计算返回确认信号个数
+		for i := 0; i < raftCount; i++ {
+			select {
+			case ok := <-rf.heartBeatRe:
+				if ok {
+					successCount++
+					if successCount > raftCount/2 {
+						fmt.Println("投票选举成功，心跳信号OK")
+						log.Fatal("程序结束")
+					}
+				}
+			}
+		}
+	}
 }
