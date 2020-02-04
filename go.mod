@@ -3,6 +3,7 @@ module awesomeProject
 go 1.13
 
 require (
+	github.com/Arafatk/glot v0.0.0-20180312013246-79d5219000f0
 	github.com/Joker/jade v1.0.0 // indirect
 	github.com/Shopify/goreferrer v0.0.0-20181106222321-ec9c9a553398 // indirect
 	github.com/Shopify/sarama v1.19.0

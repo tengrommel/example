@@ -159,3 +159,11 @@ with two parameters.
 One parameter will be used to specify the amount of data that you want to read, and the other
 parameter, which will have the *os.File type, will be used to access the desired file.
 
+# Reading CSV files
+> CSV files are plain text files with a format
+
+In this section, you will learn how to read a text file that contains points of a plane
+which means that each line will contain a pair of coordinates.
+
+Additionally, you are also going to use an external Go library named Glot,
+which will will help you to create a plot of points that you read from the CSV file.
