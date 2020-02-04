@@ -42,3 +42,16 @@ Redis的用处
 > Go 语言开发的轻量级的消息队列
 # go module
 > 包的依赖管理
+
+# 服务注册
+- 定义服务注册总接口Registry，定义方法
+    - Name():插件名，例如传etcd
+    - Init(opts ...Option):初始化，里面用选项设计模式做初始化
+    - Register():服务注册
+    - Unregister():服务反注册，例如服务端停了，注册列表销毁
+    - GetService:服务发现(ip port[] string)
+- 抽象出一些结构体
+    - Node:单个节点的结构体，包含 id ip port weight(权重)
+    - Service:里面有服务名，还有节点列表，一个服务多台服务器支撑
+- 选项设计模式，实现参数初始化
+- 插件管理类
