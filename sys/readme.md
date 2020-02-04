@@ -143,3 +143,19 @@ the function and the type construct an object
 - you embed a type into a new structure type in order to create a kind of hierarchy
 
 - where you use a Go interface to make two or more elements objects of the same class
+
+# Reading a specific amount of data
+> In this section, you will learn how to read exactly the amount of data you want
+
+This technique is particularly useful when reading binary files, where you have to decode
+the data you read in a particular way.
+
+The logic behind this technique is as follows:
+
+You create a byte slice with the size you need and use that byte slice for reading.
+To make this more interesting, this functionality is going to be implemented as a function
+with two parameters.
+
+One parameter will be used to specify the amount of data that you want to read, and the other
+parameter, which will have the *os.File type, will be used to access the desired file.
+
