@@ -2,7 +2,7 @@ package CircleQueue
 
 import "errors"
 
-const QueueSize = 100
+const QueueSize = 100 // 最多存储QueueSize-1
 
 type CircleQueue struct {
 	data  [QueueSize]interface{}
