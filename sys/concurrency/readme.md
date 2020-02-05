@@ -4,3 +4,54 @@
 The previous chapter discussed systems programming in Go, including the Go functions and techniques that allow you to
 communicate with your operating system.
 
+Go offers its own unique and innovative way of achieving concurrency, which
+comes in the form of goroutines and channels.
+
+*Everything in Go is executed using goroutine, which makes perfect sense
+since Go is concurrent programming language by design. Therefore, when a Go
+program starts its execution, its single goroutine calls the main() function,
+which starts the actual program execution*
+
+## The differences between processes, threads, and goroutines
+- A process is an execution environment that contains instructions, user data, and
+system data parts, as well as other types of resources that are obtained during
+runtime, whereas a program is a file that contains instructions and data that
+are used for initializing the instruction and user-data parts of a process.
+
+- A thread is a smaller and lighter entity than a process or a program.
+Threads are created by processes and have their own flow of control and stack.
+A quick and simplistic way to differentiate a thread from a process is to
+consider a process as the running binary file and a thread as a subset of process.
+
+- A goroutine is the minimum Go entity that can be executed concurrently. The
+use of the word "minimum" is very important here, as goroutines are not autonomous
+entities like UNIX processes - goroutines live in UNIX threads that live
+UNIX processes. The main advantage of goroutines is that they are extremely
+lightweight and running thousands or hundreds of thousands of them on a single
+machine is not a problem
+
+## The Go scheduler
+> The UNIX kernel scheduler is responsible for the execution of the threads of
+a program. On the other hand, the Go runtime has own scheduler, which is responsible
+for the execution of the goroutines using a technique known as m:n scheduling,
+where m goroutines are executed using n operating system threads using multiplexing
+The Go scheduler is the Go component responsible for the way and order in which
+the goroutines of a Go program get executed. This makes the Go scheduler a really
+important part of the Go programming language, as everything in a Go program
+is executed as a goroutine.
+
+## Concurrency versus parallelism
+
+## The concurrency models of Erlang and Rust
+
+## Creating goroutines
+
+## Creating channels
+
+## Reading or receiving data from a channel
+
+## Writing or sending data to a channel
+
+## Creating pipelines
+
+## Waiting for your goroutines to finish
