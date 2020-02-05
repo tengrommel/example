@@ -40,7 +40,27 @@ the goroutines of a Go program get executed. This makes the Go scheduler a reall
 important part of the Go programming language, as everything in a Go program
 is executed as a goroutine.
 
+*Be aware that as the Go scheduler only deals with the goroutines of a single
+program, its operation is much simpler, cheaper, and faster than the operation
+of the kernel scheduler*
+
 ## Concurrency versus parallelism
+> It is a very common misconception that concurrency is the same thing as parallelism - this is just not true! Parallelism is the simultaneous execution of multiple entities
+of some kind, whereas concurrency is a way of structuring your components so that they
+can be executed independently when possible.
+
+It is only when you build software components concurrently that you can safely execute
+them in parallel, when and if your operating system and your hardware permit it. The Erlang
+programming language did this a long time ago - long before CPUs had multiple cores
+and computers had lots of RAM.
+
+In a valid concurrent design, adding concurrent entities makes the whole system run faster
+because more thing can be executed in parallel. So, the desired parallelism comes from a better
+concurrent expression and implementation of the problem. The developer is responsible for
+taking concurrency into account during the design phase of a system and will benefit from
+a potential parallel execution of the components of the system. So, the developer should
+not think about parallelism but about breaking things into independent components that
+solve the initial problem when combined.
 
 ## The concurrency models of Erlang and Rust
 
