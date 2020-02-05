@@ -1,18 +1,21 @@
 package main
 
 import (
-	"awesomeProject/algorithms/lists/Queue"
+	"awesomeProject/algorithms/lists/CircleQueue"
 	"fmt"
 )
 
 func main() {
-	myQueue := Queue.NewQueue()
-	myQueue.EnQueue(1)
-	myQueue.EnQueue(2)
-	myQueue.EnQueue(3)
-	myQueue.EnQueue(4)
-	fmt.Println(myQueue.DeQueue())
-	fmt.Println(myQueue.DeQueue())
-	fmt.Println(myQueue.DeQueue())
-	fmt.Println(myQueue.DeQueue())
+	var myQueue CircleQueue.CircleQueue
+	CircleQueue.InitQueue(&myQueue)
+	CircleQueue.EnQueue(&myQueue, 1)
+	CircleQueue.EnQueue(&myQueue, 2)
+	CircleQueue.EnQueue(&myQueue, 3)
+	CircleQueue.EnQueue(&myQueue, 4)
+	CircleQueue.EnQueue(&myQueue, 5)
+	fmt.Println(CircleQueue.DeQueue(&myQueue))
+	fmt.Println(CircleQueue.DeQueue(&myQueue))
+	fmt.Println(CircleQueue.DeQueue(&myQueue))
+	fmt.Println(CircleQueue.DeQueue(&myQueue))
+	fmt.Println(CircleQueue.DeQueue(&myQueue))
 }
