@@ -80,3 +80,51 @@ so that the output of one goroutine becomes the input of another goroutine
 using channels to transfer your data
 
 ## Waiting for your goroutines to finish
+
+# Concurrency in Go - Advanced Topics
+> A scheduler is responsible for distributing the amount of work that needs to be done
+over the available resources in an efficient
+
+## The select keyword
+
+## How the Go scheduler works
+Go uses the fork-join concurrency model The fork part of the model states that a child
+branch can be created at any point of a program. Analogously, the join part of the Go
+concurrency model is where the child branch ends and joins with its parent. Among other
+ things, both sync.Wait() statements and channels that collect the result s of goroutines
+are join points, whereas each new goroutine creates a child branch.
+
+The fair scheduling strategy, which is pretty straightforward and has a simple implementation,
+shares all load evenly among the available processors.
+- At first, this might look like the perfect strategy because it does not have to take many
+things into consideration while keeping all processors equally occupied.
+
+- However, it turns out that this is not exactly the case because most distributed tasks
+usually depend on other tasks.
+
+- Therefore, some processors are underutilized, or equivalently, some processors are utilized
+more than others.
+
+A goroutine in Go is a task, whereas everything after the calling statement of a goroutine is a continuation.
+
+## Two techniques that allow you to time out a goroutine that takes longer than expected to finish
+
+## Signal channels
+
+## Buffered channels
+
+## Nil channels
+
+## Monitor goroutines
+
+## Shared memory and mutexes
+
+## The sync.Mutex and sync.RWMutex types
+
+## The context package and its advanced functionality
+
+## The atomic package
+
+## Worker pools
+
+## Detecting race conditions
