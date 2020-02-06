@@ -69,6 +69,9 @@ solve the initial problem when combined.
 ## Creating channels
 
 ## Reading or receiving data from a channel
+>You can read a single value from a channel named c by executing <-c
+In this case, the direction is from the channel to the outer world.
+
 
 ## Writing or sending data to a channel
 
