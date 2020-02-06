@@ -72,9 +72,11 @@ solve the initial problem when combined.
 >You can read a single value from a channel named c by executing <-c
 In this case, the direction is from the channel to the outer world.
 
-
 ## Writing or sending data to a channel
 
 ## Creating pipelines
+A pipeline is a virtual method for connecting goroutines and channels
+so that the output of one goroutine becomes the input of another goroutine
+using channels to transfer your data
 
 ## Waiting for your goroutines to finish
