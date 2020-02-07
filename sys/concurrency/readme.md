@@ -116,6 +116,8 @@ A goroutine in Go is a task, whereas everything after the calling statement of a
 
 ## Two techniques that allow you to time out a goroutine that takes longer than expected to finish
 
+- Timing out a goroutine
+
 ## Signal channels
 
 ## Buffered channels
