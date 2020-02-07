@@ -87,6 +87,13 @@ over the available resources in an efficient
 
 ## The select keyword
 
+As you will learn in a short while, the select keyword is pretty powerful and can do
+many things in a variety of situations. The select statement in Go looks like a switch
+statement but for channels.
+
+In practice, this means that select allows a goroutine to wait on multiple communication operations
+
+
 ## How the Go scheduler works
 Go uses the fork-join concurrency model The fork part of the model states that a child
 branch can be created at any point of a program. Analogously, the join part of the Go
