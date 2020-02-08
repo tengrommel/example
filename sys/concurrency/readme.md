@@ -119,8 +119,14 @@ A goroutine in Go is a task, whereas everything after the calling statement of a
 - Timing out a goroutine
 
 ## Signal channels
+> signal channels not be used for the transferring data
 
 ## Buffered channels
+> These are channels that allow the Go scheduler to put jobs in the queue quickly
+
+The technique presented here works as follows:
+> all incoming requests are forwarded to a channel, which processes them
+one by one
 
 ## Nil channels
 
