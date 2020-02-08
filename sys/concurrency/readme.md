@@ -126,9 +126,9 @@ A goroutine in Go is a task, whereas everything after the calling statement of a
 
 The technique presented here works as follows:
 > all incoming requests are forwarded to a channel, which processes them
-one by one
 
 ## Nil channels
+> These are a special kind of channel because they always block
 
 ## Monitor goroutines
 
