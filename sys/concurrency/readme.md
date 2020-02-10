@@ -133,8 +133,16 @@ The technique presented here works as follows:
 ## Monitor goroutines
 
 ## Shared memory and mutexes
+> Shared memory and shared variables are the most common ways for UNIX threads to
+communicate with each other.
+
+A mutex variable, which is an abbreviation of mutual exclusion variable, is mainly used for
+thread synchronization and for protecting shared data when multiple writes can occur at
+the same time.
 
 ## The sync.Mutex and sync.RWMutex types
+> The sync.Mutex type is the Go implementation of a mutex. Its definition, which can be
+found in the mutex.go
 
 ## The context package and its advanced functionality
 
