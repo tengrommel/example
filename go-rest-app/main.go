@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// export GOOGLE_APPLICATION_CREDENTIALS="/Users/tengzhou/Desktop/teng-review-firebase-adminsdk-cuh7g-e94895a080.json"
 func main() {
 	var router = mux.NewRouter()
 	const port string = ":8000"

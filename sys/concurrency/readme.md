@@ -141,8 +141,13 @@ thread synchronization and for protecting shared data when multiple writes can o
 the same time.
 
 ## The sync.Mutex and sync.RWMutex types
-> The sync.Mutex type is the Go implementation of a mutex. Its definition, which can be
-found in the mutex.go
+> The sync.Mutex type is the Go implementation of a mutex.
+sync.RWMutex is based on sync.RWMutex is based on sync.Mutex with the necessary
+additions and improvements
+
+Now let us talk about how sync.RWMutex improves sync.Mutex
+> Although only one function is allowed to perform write operations using a sync.RWMutex
+you can have multiple readers owning a sync.RWMutex mutex
 
 ## The context package and its advanced functionality
 
