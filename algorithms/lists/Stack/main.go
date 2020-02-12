@@ -5,29 +5,25 @@ import (
 	"fmt"
 )
 
+func FAB(num int) int {
+	if num == 1 || num == 2 {
+		return 1
+	} else {
+		return FAB(num-1) + FAB(num-2)
+	}
+}
+
 func main() {
 	myStack := StackArray.NewStack()
-	myStack.Push(1)
-	myStack.Push(2)
-	myStack.Push(3)
-	myStack.Push(4)
-	fmt.Println(myStack.Pop())
-	fmt.Println(myStack.Pop())
-	fmt.Println(myStack.Pop())
-	fmt.Println(myStack.Pop())
-	stack := StackArray.NewStack()
-	stack.Push(5)
+	myStack.Push(7)
 	last := 0
-	for !stack.IsEmpty() {
-		data := stack.Pop()
-		if data == nil {
-			break
-		}
-		if data == 0 {
-			last += 0
+	for !myStack.IsEmpty() {
+		data := myStack.Pop() // 取出数据
+		if data == 1 || data == 2 {
+			last += 1
 		} else {
-			last += data.(int)
-			stack.Push(data.(int) - 1)
+			myStack.Push(data.(int) - 1)
+			myStack.Push(data.(int) - 2)
 		}
 	}
 	fmt.Println(last)
