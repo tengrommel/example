@@ -37,5 +37,19 @@ Go also makes it easy to combine interfaces:
 convert the data from string to byte types, and vice versa.
 - Working with directories and files
 - Working with the CSV format
+> CSV is a common format that is used to manipulate data
 - Working with temporary files
 - Working with text/template and html/template
+
+# Command-Line Tools
+> Command-line applications are among the easiest ways to handle user input and output
+
+## Using command-line flags
+## Using command-line arguments
+## Reading and setting environment variables
+## Configuration using TOML, YAML, and JSON
+## Working with Unix pipes
+> Unix pipes are useful when we are passing the output of one program to the
+input of another
+## Catching and handling signals
+## An ANSI coloring application
