@@ -33,6 +33,8 @@ Go also makes it easy to combine interfaces:
     }
 
 - Using the bytes and strings packages
+> The bytes and strings packages have a number of useful helpers to work with and
+convert the data from string to byte types, and vice versa.
 - Working with directories and files
 - Working with the CSV format
 - Working with temporary files
