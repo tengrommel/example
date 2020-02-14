@@ -5,12 +5,12 @@ import "errors"
 const QueueSize = 100 // 最多存储QueueSize-1
 
 type CircleQueue struct {
-	data  [QueueSize]interface{}
-	front int
-	rear  int
+	data  [QueueSize]interface{} // 存储数据的结构
+	front int                    // 头部的位置
+	rear  int                    // 尾部的位置
 }
 
-func InitQueue(q *CircleQueue) { // 头部和尾部重合，为空
+func InitQueue(q *CircleQueue) { // 初始化，头部和尾部重合，为空
 	q.front = 0
 	q.rear = 0
 }
