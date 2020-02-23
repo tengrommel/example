@@ -53,3 +53,7 @@ convert the data from string to byte types, and vice versa.
 input of another
 ## Catching and handling signals
 ## An ANSI coloring application
+
+# Working with numberic data types using math and math/big
+> The math and math/big packages focus on exposing more complex mathematical operations to the
+Go language, such as Pow, Sqrt, and Cos.
