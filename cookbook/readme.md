@@ -57,3 +57,15 @@ input of another
 # Working with numberic data types using math and math/big
 > The math and math/big packages focus on exposing more complex mathematical operations to the
 Go language, such as Pow, Sqrt, and Cos.
+
+# Currency conversions and float64 considerations
+> Working with currency is always a tricky process.
+It can be tempting to represent money as a float64, but this can result in some pretty tricky (rand wrong)
+rounding errors when doing calculations. For this reason, it's preferable to think of money in terms of cents
+and store the figure as an int64 instance.
+
+When collection user input froms, the command line, or other sources,
+money is usually represented in dollar form. For this reason, it's best to treat
+it as a string and convert that string directly to cents without floating-point conversions.
+This recipe will present ways to convert a string representation of currency into an int64(cents)
+instance and back again.
