@@ -69,3 +69,14 @@ money is usually represented in dollar form. For this reason, it's best to treat
 it as a string and convert that string directly to cents without floating-point conversions.
 This recipe will present ways to convert a string representation of currency into an int64(cents)
 instance and back again.
+
+# Using pointers and SQL NullTypes for encoding and decoding
+> When you encode or decode into an object in Go, types that are not explicitly set will be set to their default values.
+
+Strings will default to empty string("") and integers will default to 0, as an example.
+
+Normally, this is fine, unless 0 means something for your API or service that is consuming the user input or returning it.
+
+In addition, if you use struct tags such as json omitempty, the 0 value will be ignored even if they're valid.
+
+Another example of this is Null, which returns from SQL What value best represents Null for an Int?
