@@ -4,6 +4,7 @@ import (
 	"awesomeProject/microservices/ex/data"
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -63,6 +64,17 @@ func (p Products) MiddlewareProductValidation(next http.Handler) http.Handler {
 		if err != nil {
 			p.l.Println("[ERROR] deserializing product")
 			http.Error(rw, "Error reading product", http.StatusBadRequest)
+			return
+		}
+		// validate the product
+		err = prod.Validate()
+		if err != nil {
+			p.l.Println("[ERROR] validating product")
+			http.Error(
+				rw,
+				fmt.Sprintf("Error validating product: %s", err),
+				http.StatusBadRequest,
+			)
 			return
 		}
 		ctx := context.WithValue(r.Context(), KeyProduct{}, prod)

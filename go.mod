@@ -10,6 +10,7 @@ require (
 	github.com/coreos/etcd v3.3.18+incompatible // indirect
 	github.com/garyburd/redigo v1.6.0
 	github.com/gin-gonic/gin v1.5.0
+	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/go-redis/redis v6.15.6+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang-migrate/migrate/v4 v4.7.0
