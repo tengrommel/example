@@ -24,6 +24,7 @@ require (
 	github.com/lib/pq v1.0.0
 	github.com/mitchellh/reflectwalk v1.0.1
 	github.com/namsral/flag v1.7.4-pre
+	github.com/nicholasjackson/env v0.6.0
 	github.com/nsqio/go-nsq v1.0.7
 	github.com/olivere/elastic/v7 v7.0.10
 	github.com/pkg/errors v0.8.1
