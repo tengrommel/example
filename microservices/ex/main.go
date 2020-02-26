@@ -3,6 +3,7 @@ package main
 import (
 	"awesomeProject/microservices/ex/handlers"
 	"context"
+	"github.com/gorilla/mux"
 	"github.com/nicholasjackson/env"
 	"log"
 	"net/http"
@@ -18,11 +19,18 @@ func main() {
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 	ph := handlers.NewProducts(l)
 	//hh := handlers.NewHello(l)
-	gh := handlers.NewGoodbye(l)
 	// create a new serve mux and register the handlers
-	sm := http.NewServeMux()
-	sm.Handle("/", ph)
-	sm.Handle("/goodbye", gh)
+	sm := mux.NewRouter()
+	getRouter := sm.Methods(http.MethodGet).Subrouter()
+	getRouter.HandleFunc("/", ph.GetProducts)
+
+	putRouter := sm.Methods(http.MethodPut).Subrouter()
+	putRouter.HandleFunc("/{id:[0-9]+}", ph.UpdateProduct)
+	putRouter.Use(ph.MiddlewareProductValidation)
+
+	postRouter := sm.Methods(http.MethodPost).Subrouter()
+	postRouter.HandleFunc("/", ph.AddProduct)
+	postRouter.Use(ph.MiddlewareProductValidation)
 	// create a new server
 	s := &http.Server{
 		Addr:         *bindAddress,
